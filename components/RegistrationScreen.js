@@ -1,11 +1,4 @@
-import {
-  Button,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import AddIcon from '../src/assets/addIcon';
 import { useState } from 'react';
 
