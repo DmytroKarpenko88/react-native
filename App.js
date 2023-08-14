@@ -1,11 +1,22 @@
+import { useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { useFonts } from 'expo-font';
+import PostsScreen from './Screens/PostsScreen';
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    Regular: require('./src/assets/fonts/Roboto-Regular.ttf'),
+    Medium: require('./src/assets/fonts/Roboto-Medium.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <PostsScreen />
+      <StatusBar style='auto' />
     </View>
   );
 }
