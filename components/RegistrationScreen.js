@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import AddIcon from '../src/assets/addIcon';
+import AddIcon from '../src/assets/AddIcon';
 import { useState } from 'react';
 
 export default function RegistrationScreen() {

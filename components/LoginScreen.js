@@ -1,46 +1,90 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import AddIcon from '../src/assets/addIcon';
-import { useState } from 'react';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+
+import React, { useState } from 'react';
+
+const initialState = {
+  email: '',
+  password: '',
+};
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  return (
-    <View style={styles.container}>
-      <View style={styles.wrapper}>
-        <Text style={styles.title}>Увійти</Text>
+  const [isShowKeybord, setIsShowKeybord] = useState(false);
+  const [state, setState] = useState(initialState);
 
-        <View style={styles.form}>
-          <TextInput
-            value={email}
-            onChange={setEmail}
-            style={styles.input}
-            placeholder='Адреса електронної пошти'
-          />
-          <View>
-            <TextInput
-              value={password}
-              onChange={setPassword}
-              style={styles.input}
-              secureTextEntry
-              placeholder='Пароль'
-            />
-            <Text style={styles.text}>Показати</Text>
+  const keyboardHide = () => {
+    Keyboard.dismiss();
+    setIsShowKeybord(false);
+  };
+  const onSubmitForm = () => {
+    console.log(state);
+    setState(initialState);
+  };
+  return (
+    <TouchableWithoutFeedback onPress={keyboardHide}>
+      <View style={styles.container}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+        >
+          <View style={styles.wrapper}>
+            <Text style={styles.title}>Увійти</Text>
+
+            <View style={{ ...styles.form, marginBottom: isShowKeybord && 30 }}>
+              <TextInput
+                onFocus={() => setIsShowKeybord(true)}
+                onChangeText={(value) =>
+                  setState((prev) => ({ ...prev, email: value }))
+                }
+                value={state.email}
+                style={styles.input}
+                placeholder='Адреса електронної пошти'
+              />
+              <View>
+                <TextInput
+                  onFocus={() => setIsShowKeybord(true)}
+                  value={state.password}
+                  onChangeText={(value) =>
+                    setState((prev) => ({ ...prev, password: value }))
+                  }
+                  style={styles.input}
+                  secureTextEntry
+                  placeholder='Пароль'
+                />
+                <Text style={styles.text}>Показати</Text>
+              </View>
+              <Pressable
+                style={{
+                  ...styles.button,
+                  display: isShowKeybord ? 'none' : 'flex',
+                }}
+                onPress={() => onSubmitForm()}
+              >
+                <Text style={styles.buttonText}>Увійти</Text>
+              </Pressable>
+              <Text
+                style={{
+                  ...styles.buttonText,
+                  color: '#1B4371',
+                  textAlign: 'center',
+                  display: isShowKeybord ? 'none' : 'flex',
+                  marginBottom: isShowKeybord ? 0 : 144,
+                }}
+              >
+                Немає акаунту? Зареєструватися
+              </Text>
+            </View>
           </View>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>Увійти</Text>
-          </Pressable>
-          <Text
-            style={[
-              styles.buttonText,
-              { color: '#1B4371', textAlign: 'center' },
-            ]}
-          >
-            Немає акаунту? Зареєструватися
-          </Text>
-        </View>
+        </KeyboardAvoidingView>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -52,7 +96,7 @@ const styles = StyleSheet.create({
   wrapper: {
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    height: 489,
+    // height: 489,
     backgroundColor: '#fff',
     alignItems: 'center',
   },
