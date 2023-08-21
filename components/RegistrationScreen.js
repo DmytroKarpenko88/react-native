@@ -1,56 +1,103 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import AddIcon from '../src/assets/AddIcon';
 import { useState } from 'react';
 
+const initialState = {
+  login: '',
+  email: '',
+  password: '',
+};
 export default function RegistrationScreen() {
-  const [login, setLogin] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  return (
-    <View style={styles.container}>
-      <View style={styles.wrapper}>
-        <View style={styles.addIconBox}>
-          <AddIcon style={styles.addIcon} />
-        </View>
-        <Text style={styles.title}>Реєстрація</Text>
+  const [isShowKeybord, setIsShowKeybord] = useState(false);
+  const [state, setState] = useState(initialState);
 
-        <View style={styles.form}>
-          <TextInput
-            value={login}
-            onChange={setLogin}
-            style={styles.input}
-            placeholder='Логін'
-          />
-          <TextInput
-            value={email}
-            onChange={setEmail}
-            style={styles.input}
-            placeholder='Адреса електронної пошти'
-          />
-          <View>
-            <TextInput
-              value={password}
-              onChange={setPassword}
-              style={styles.input}
-              secureTextEntry
-              placeholder='Пароль'
-            />
-            <Text style={styles.text}>Показати</Text>
+  const keyboardHide = () => {
+    Keyboard.dismiss();
+    setIsShowKeybord(false);
+  };
+
+  const onSubmitForm = () => {
+    console.log(state);
+    setState(initialState);
+  };
+  return (
+    <TouchableWithoutFeedback onPress={keyboardHide}>
+      <View style={styles.container}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+        >
+          <View style={styles.wrapper}>
+            <View style={styles.addIconBox}>
+              <AddIcon style={styles.addIcon} />
+            </View>
+            <Text style={styles.title}>Реєстрація</Text>
+
+            <View style={{ ...styles.form, marginBottom: isShowKeybord && 32 }}>
+              <TextInput
+                onFocus={() => setIsShowKeybord(true)}
+                onChangeText={(value) =>
+                  setState((prev) => ({ ...prev, login: value }))
+                }
+                value={state.login}
+                style={styles.input}
+                placeholder='Логін'
+              />
+              <TextInput
+                onFocus={() => setIsShowKeybord(true)}
+                onChangeText={(value) =>
+                  setState((prev) => ({ ...prev, email: value }))
+                }
+                value={state.email}
+                style={styles.input}
+                placeholder='Адреса електронної пошти'
+              />
+              <View>
+                <TextInput
+                  onFocus={() => setIsShowKeybord(true)}
+                  onChangeText={(value) =>
+                    setState((prev) => ({ ...prev, password: value }))
+                  }
+                  value={state.password}
+                  style={styles.input}
+                  secureTextEntry
+                  placeholder='Пароль'
+                />
+                <Text style={styles.text}>Показати</Text>
+              </View>
+              <Pressable
+                style={{
+                  ...styles.button,
+                  display: isShowKeybord ? 'none' : 'flex',
+                }}
+                onPress={() => onSubmitForm()}
+              >
+                <Text style={styles.buttonText}>Зареєструватися</Text>
+              </Pressable>
+              <Text
+                style={{
+                  ...styles.buttonText,
+                  color: '#1B4371',
+                  textAlign: 'center',
+                  display: isShowKeybord ? 'none' : 'flex',
+                  marginBottom: isShowKeybord ? 0 : 144,
+                }}
+              >
+                Вже є акаунт? Увійти
+              </Text>
+            </View>
           </View>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>Зареєструватися</Text>
-          </Pressable>
-          <Text
-            style={[
-              styles.buttonText,
-              { color: '#1B4371', textAlign: 'center' },
-            ]}
-          >
-            Вже є акаунт? Увійти
-          </Text>
-        </View>
+        </KeyboardAvoidingView>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -62,7 +109,7 @@ const styles = StyleSheet.create({
   wrapper: {
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    height: 549,
+    // height: 549,
     backgroundColor: '#fff',
     alignItems: 'center',
   },

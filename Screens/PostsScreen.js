@@ -6,8 +6,8 @@ import LoginScreen from '../components/LoginScreen';
 export default function PostsScreen() {
   return (
     <ImageBackground source={bgImage} style={styles.bgImage}>
-      {/* <RegistrationScreen /> */}
-      <LoginScreen />
+      <RegistrationScreen />
+      {/* <LoginScreen /> */}
     </ImageBackground>
   );
 }

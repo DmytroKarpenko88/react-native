@@ -24,6 +24,7 @@ export default function LoginScreen() {
     Keyboard.dismiss();
     setIsShowKeybord(false);
   };
+
   const onSubmitForm = () => {
     console.log(state);
     setState(initialState);
@@ -37,7 +38,7 @@ export default function LoginScreen() {
           <View style={styles.wrapper}>
             <Text style={styles.title}>Увійти</Text>
 
-            <View style={{ ...styles.form, marginBottom: isShowKeybord && 30 }}>
+            <View style={{ ...styles.form, marginBottom: isShowKeybord && 32 }}>
               <TextInput
                 onFocus={() => setIsShowKeybord(true)}
                 onChangeText={(value) =>
