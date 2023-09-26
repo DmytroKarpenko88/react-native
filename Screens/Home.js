@@ -3,10 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import RegistrationScreen from './RegistrationScreen';
 import LoginScreen from './LoginScreen';
 
-export default function PostsScreen() {
+export default function Home() {
   return (
     <View style={styles.container}>
-      <Text>PostsScreen </Text>
+      <Text>Home </Text>
     </View>
 
     // <RegistrationScreen />
