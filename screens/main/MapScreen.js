@@ -1,16 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import RegistrationScreen from './RegistrationScreen';
-import LoginScreen from './LoginScreen';
-
-export default function Home() {
+export default function MapScreen() {
   return (
     <View style={styles.container}>
-      <Text>Home </Text>
+      <Text>MapScreen </Text>
     </View>
-
-    // <RegistrationScreen />
-    // {/* <LoginScreen /> */}
   );
 }
 

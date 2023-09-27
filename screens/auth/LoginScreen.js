@@ -10,17 +10,18 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import AddIcon from '../src/assets/AddIcon';
-import { useState } from 'react';
-import bgImage from '../src/assets/bgImage.png';
+
+import React, { useState } from 'react';
+import bgImage from '../../src/assets/bgImage.png';
 import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native';
 
 const initialState = {
-  login: '',
   email: '',
   password: '',
 };
-export default function RegistrationScreen() {
+
+export default function LoginScreen() {
   const [isShowKeybord, setIsShowKeybord] = useState(false);
   const [state, setState] = useState(initialState);
 
@@ -34,6 +35,7 @@ export default function RegistrationScreen() {
   const onSubmitForm = () => {
     console.log(state);
     setState(initialState);
+    navigation.navigate('Home');
   };
   return (
     <ImageBackground source={bgImage} style={styles.bgImage}>
@@ -43,23 +45,11 @@ export default function RegistrationScreen() {
             behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
           >
             <View style={styles.wrapper}>
-              <View style={styles.addIconBox}>
-                <AddIcon style={styles.addIcon} />
-              </View>
-              <Text style={styles.title}>Реєстрація</Text>
+              <Text style={styles.title}>Увійти</Text>
 
               <View
                 style={{ ...styles.form, marginBottom: isShowKeybord && 32 }}
               >
-                <TextInput
-                  onFocus={() => setIsShowKeybord(true)}
-                  onChangeText={(value) =>
-                    setState((prev) => ({ ...prev, login: value }))
-                  }
-                  value={state.login}
-                  style={styles.input}
-                  placeholder='Логін'
-                />
                 <TextInput
                   onFocus={() => setIsShowKeybord(true)}
                   onChangeText={(value) =>
@@ -72,10 +62,10 @@ export default function RegistrationScreen() {
                 <View>
                   <TextInput
                     onFocus={() => setIsShowKeybord(true)}
+                    value={state.password}
                     onChangeText={(value) =>
                       setState((prev) => ({ ...prev, password: value }))
                     }
-                    value={state.password}
                     style={styles.input}
                     secureTextEntry
                     placeholder='Пароль'
@@ -89,23 +79,23 @@ export default function RegistrationScreen() {
                   }}
                   onPress={() => onSubmitForm()}
                 >
-                  <Text style={styles.buttonText}>Зареєструватися</Text>
+                  <Text style={styles.buttonText}>Увійти</Text>
                 </Pressable>
-                <Text
-                  style={{
-                    ...styles.buttonText,
-                    color: '#1B4371',
-                    textAlign: 'center',
-                    display: isShowKeybord ? 'none' : 'flex',
-                    marginBottom: isShowKeybord ? 0 : 144,
-                  }}
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Register')}
                 >
-                  Вже є акаунт?{' '}
-                  <Button
-                    title='Увійти'
-                    onPress={() => navigation.navigate('Login')}
-                  />
-                </Text>
+                  <Text
+                    style={{
+                      ...styles.buttonText,
+                      color: '#1B4371',
+                      textAlign: 'center',
+                      display: isShowKeybord ? 'none' : 'flex',
+                      marginBottom: isShowKeybord ? 0 : 144,
+                    }}
+                  >
+                    Немає акаунту? Зареєструватися
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
           </KeyboardAvoidingView>
@@ -127,7 +117,7 @@ const styles = StyleSheet.create({
   wrapper: {
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    // height: 549,
+    // height: 489,
     backgroundColor: '#fff',
     alignItems: 'center',
   },
@@ -145,7 +135,7 @@ const styles = StyleSheet.create({
     right: -12,
   },
   title: {
-    marginTop: 92,
+    marginTop: 32,
     color: '#212121',
     textAlign: 'center',
     fontFamily: 'Medium',
