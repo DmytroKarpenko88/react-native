@@ -48,7 +48,7 @@ export default function LoginScreen() {
               <Text style={styles.title}>Увійти</Text>
 
               <View
-                style={{ ...styles.form, marginBottom: isShowKeybord && 32 }}
+                style={{ ...styles.form, marginBottom: isShowKeybord && 100 }}
               >
                 <TextInput
                   onFocus={() => setIsShowKeybord(true)}

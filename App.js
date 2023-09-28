@@ -9,7 +9,7 @@ import Login from './screens/auth/LoginScreen';
 import Home from './screens/main/Home';
 import { NavigationContainer } from '@react-navigation/native';
 
-const MainStack = createStackNavigator();
+const AuthStack = createStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -22,10 +22,10 @@ export default function App() {
   }
   return (
     <NavigationContainer>
-      <MainStack.Navigator initialRouteName='Login'>
-        <MainStack.Screen name='Register' component={Register} />
-        <MainStack.Screen name='Login' component={Login} />
-        <MainStack.Screen
+      <AuthStack.Navigator initialRouteName='Login'>
+        <AuthStack.Screen name='Register' component={Register} />
+        <AuthStack.Screen name='Login' component={Login} />
+        <AuthStack.Screen
           name='Home'
           component={Home}
           options={{ title: 'Start screen' }}
@@ -35,7 +35,7 @@ export default function App() {
 
         {/* // <StatusBar style='auto' /> */}
         {/* // </View> */}
-      </MainStack.Navigator>
+      </AuthStack.Navigator>
     </NavigationContainer>
   );
 }

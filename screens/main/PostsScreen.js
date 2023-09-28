@@ -1,12 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import DeleteIcon from '../../components/icons/DeleteIcon';
 
 export default function PostsScreen() {
   return (
     <View style={styles.container}>
-      <Text>PostsScreen </Text>
       <TouchableOpacity
         style={{
           width: 70,
@@ -32,6 +32,7 @@ export default function PostsScreen() {
       >
         <Ionicons name='add' size={24} color='white' />
       </TouchableOpacity>
+      <Feather name='grid' size={24} color='#212121CC' />
     </View>
   );
 }
